@@ -7,4 +7,5 @@ from add_0 import add
 
 # Step 5: Call the add function and print the result
 result = add(a, b)
-print(f"{a} + {b} = {result}")
+if __name__ == "__main__":
+    print(f"{a} + {b} = {result}")
