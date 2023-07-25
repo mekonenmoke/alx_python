@@ -1,8 +1,8 @@
-import variable_load_2
+from variable_load_2 import a
 
 
 def main():
-    print(variable_load_2.a)
+    print(a)
 
 
 if __name__ == "__main__":
