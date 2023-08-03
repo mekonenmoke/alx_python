@@ -1,8 +1,25 @@
+# 0-square.py
+
+
 class Square:
+    """
+    A class representing a square.
+
+    Attributes:
+        __size (int): The size of the square (private attribute).
+    """
+
     def __init__(self, size):
         """
-        This method is to initialize the class square
+        Initializes a new Square instance.
 
-        :param size: is the private variable
+        Args:
+            size (int): The size of the square.
+
+        Raises:
+            None.
+
+        Returns:
+            None.
         """
         self.__size = size
