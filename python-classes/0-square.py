@@ -1,4 +1,6 @@
-# 0-square.py
+"""
+A class representing a square.
+"""
 
 
 class Square:
