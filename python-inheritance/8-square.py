@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """A class representing a rectangle, inheriting from Rectangle."""
+Rectangle = __import__("7-rectangle").Rectangle
 
 
 class Square(Rectangle):

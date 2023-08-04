@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """A class representing a rectangle, inheriting from BaseGeometry."""
+BaseGeometry = __import__("5-base_geometry").BaseGeometry
 
 
 class Rectangle(BaseGeometry):
@@ -22,16 +23,6 @@ class Rectangle(BaseGeometry):
 
         __str__(self):
             Returns a string representation of the Rectangle in the format [Rectangle] width/height.
-
-    Example:
-        # Create a Rectangle instance with width=3 and height=5
-        r = Rectangle(3, 5)
-
-        # Print the string representation of the Rectangle object
-        print(r)
-
-        # Calculate and print the area of the Rectangle
-        print(r.area())
 
     """
 
@@ -71,4 +62,4 @@ class Rectangle(BaseGeometry):
             str: The string representation of the Rectangle object.
 
         """
-        return f"[Rectangle] {self.__width}/{self.__height}"
+        return "[Rectangle] {}/{}".format(self.__width, self.__height)
