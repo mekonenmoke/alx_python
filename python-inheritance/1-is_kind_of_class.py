@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""Module containing is_kind_of_class method"""
+
+
 def is_kind_of_class(obj, a_class):
     """
     Check if the object is an instance of, or an instance of a class that inherited from,
