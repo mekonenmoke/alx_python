@@ -14,15 +14,6 @@ class BaseGeometry:
 
     Methods:
         None
-
-    Example:
-        # Create an instance of the BaseGeometry class
-        bg = BaseGeometry()
-
-        # Print the object representation and attributes of the instance
-        print(bg)
-        print(dir(bg))
-
     """
 
     pass
