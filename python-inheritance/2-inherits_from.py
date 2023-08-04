@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Check if the object's class is a subclass of the specified class"""
-"""Module containing is_kind_of_class method"""
 
 
 def inherits_from(obj, a_class):
