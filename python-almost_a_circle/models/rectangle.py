@@ -112,8 +112,8 @@ class Rectangle(Base):
         """Return a string representation of the rectangle."""
         return f"[Rectangle] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}"
 
-    def update(self, *args):
-        """Update attributes using variable arguments."""
+    def update(self, *args, **kwargs):
+        """Update attributes using variable arguments and keyword arguments."""
         if args:
             if len(args) >= 1:
                 self.id = args[0]
@@ -125,3 +125,6 @@ class Rectangle(Base):
                 self.x = args[3]
             if len(args) >= 5:
                 self.y = args[4]
+        else:
+            for key, value in kwargs.items():
+                setattr(self, key, value)
