@@ -101,3 +101,10 @@ class Rectangle(Base):
     def area(self):
         """Public area method"""
         return self.height * self.width
+
+    def display(self):
+        """Display the rectangle using '#' characters."""
+        for _ in range(self.y):
+            print()
+        for _ in range(self.height):
+            print(" " * self.x + "#" * self.width)
