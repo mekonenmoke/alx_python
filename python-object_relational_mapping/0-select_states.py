@@ -23,7 +23,6 @@ def list_states(username, password, db_name):
 
     # Create a cursor to execute queries
     cursor = connection.cursor()
-
     # Execute the query to retrieve states
     query = "SELECT * FROM states ORDER BY id ASC"
     cursor.execute(query)
