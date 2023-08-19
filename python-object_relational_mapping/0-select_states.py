@@ -1,7 +1,6 @@
 """a script that lists all states from the database
 """
 import MySQLdb
-import sys
 
 
 def list_states(username, password, db_name):
@@ -19,7 +18,7 @@ def list_states(username, password, db_name):
 
     # Connect to the MySQL server
     connection = MySQLdb.connect(
-        host="localhost", port=3306, user="root", passwd="0735", db="hbtn_0e_0_usa"
+        host="localhost", port=3306, user=username, passwd=password, db=db_name
     )
 
     # Create a cursor to execute queries
@@ -42,7 +41,7 @@ def list_states(username, password, db_name):
 
 
 if __name__ == "__main__":
-    username = sys.argv[1]
-    password = sys.argv[2]
-    db_name = sys.argv[3]
+    username = "root"
+    password = "0735"
+    db_name = "hbtn_0e_0_usa"
     list_states(username, password, db_name)
