@@ -3,7 +3,7 @@
 import MySQLdb
 
 
-def list_states(username, password, db_name):
+def list_states(username, password, database):
     """
     Retrieve and display a list of states from a MySQL database.
 
@@ -18,24 +18,26 @@ def list_states(username, password, db_name):
 
     # Connect to the MySQL server
     connection = MySQLdb.connect(
-        host="localhost", port=3306, user=username, passwd=password, db=db_name
+        host="localhost", port=3306, user=username, password=password, db=database
     )
 
-    # Create a cursor to execute queries
+    # Create a cursor object
     cursor = connection.cursor()
-    # Execute the query to retrieve states
-    query = "SELECT * FROM states ORDER BY id ASC"
-    cursor.execute(query)
 
-    # Fetch all results
+    # Execute the query
+    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+
+    # Fetch all rows
     results = cursor.fetchall()
 
-    # Display results
+    # Print the results
     for row in results:
         print(row)
 
-    # Close the cursor and connection
+    # Close the cursor object
     cursor.close()
+
+    # Close the connection
     connection.close()
 
 
