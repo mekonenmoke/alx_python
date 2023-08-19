@@ -44,4 +44,5 @@ if __name__ == "__main__":
     username = "root"
     password = "0735"
     db_name = "hbtn_0e_0_usa"
+
     list_states(username, password, db_name)
