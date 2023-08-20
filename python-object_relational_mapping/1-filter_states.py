@@ -13,7 +13,7 @@ connection = MySQLdb.connect(
 curs = connection.cursor()
 
 # execute query
-curs.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+curs.execute("""SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC""")
 
 # resultset
 rows = curs.fetchall()
