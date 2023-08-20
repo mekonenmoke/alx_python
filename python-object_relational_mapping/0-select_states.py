@@ -3,14 +3,14 @@
 import MySQLdb
 
 
-def list_states(username, password, db_name):
+def list_states(username1, password1, db_name1):
     """
     Retrieve and display a list of states from a MySQL database.
 
     Args:
-        username (str): MySQL username.
-        password (str): MySQL password.
-        db_name (str): Name of the database.
+        username1 (str): MySQL username.
+        password1 (str): MySQL password.
+        db_name1 (str): Name of the database.
 
     Returns:
         None
@@ -18,7 +18,7 @@ def list_states(username, password, db_name):
 
     # Connect to the MySQL server
     connection = MySQLdb.connect(
-        host="localhost", port=3306, user=username, password=password, db=db_name
+        host="localhost", port=3306, user=username1, password=password1, db=db_name1
     )
 
     # Create a cursor to execute queries
