@@ -16,36 +16,31 @@ def main():
     """
 
     # Retrieve arguments
-    mysql_username = "root"
-    mysql_password = "0735"
-    database_name = "hbtn_0e_0_usa"
-    state_name = "Arizona"
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    database_name = sys.argv[3]
+    state_name = sys.argv[4]
 
     # Connect to the MySQL server
-    try:
-        db = MySQLdb.connect(
-            host="localhost",
-            user=mysql_username,
-            password=mysql_password,
-            db=database_name,
-            port=3306,
-        )
-        cursor = db.cursor()
+    db = MySQLdb.connect(
+        host="localhost",
+        user=mysql_username,
+        password=mysql_password,
+        db=database_name,
+        port=3306,
+    )
+    cursor = db.cursor()
 
-        # Create and execute the SQL query
-        query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
-        cursor.execute(query, (state_name,))
+    # Create and execute the SQL query
+    query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
+    cursor.execute(query, (state_name,))
 
-        # Fetch and display the results
-        results = cursor.fetchall()
-        for row in results:
-            print(row)
-
-    except MySQLdb.Error as e:
-        print("Error:", e)
-    finally:
-        if db:
-            db.close()
+    # Fetch and display the results
+    results = cursor.fetchall()
+    for row in results:
+        print(row)
+    cursor.close()
+    db.close()
 
 
 if __name__ == "__main__":
