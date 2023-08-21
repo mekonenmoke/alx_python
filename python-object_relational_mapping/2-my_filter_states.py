@@ -5,38 +5,48 @@ of hbtn_0e_0_usa where name matches the argument.
 """
 
 import MySQLdb
+import sys
 
-if __name__ == "__main__":
-    # Get command line arguments
+
+def main():
+    """
+    Connects to a MySQL server and retrieves data from the states table based on provided arguments.
+
+    Usage: python script.py <mysql_username> <mysql_password> <database_name> <state_name>
+    """
+
+    # Retrieve arguments
     mysql_username = "root"
     mysql_password = "0735"
-    db_name = "hbtn_0e_0_usa"
+    database_name = "hbtn_0e_0_usa"
     state_name = "Arizona"
 
-    # Connect to MySQL server
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=mysql_username,
-        passwd=mysql_password,
-        db=db_name,
-        charset="utf8",
-    )
+    # Connect to the MySQL server
+    try:
+        db = MySQLdb.connect(
+            host="localhost",
+            user=mysql_username,
+            password=mysql_password,
+            db=database_name,
+            port=3306,
+        )
+        cursor = db.cursor()
 
-    # Create a cursor object to interact with the database
-    cursor = db.cursor()
+        # Create and execute the SQL query
+        query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
+        cursor.execute(query, (state_name,))
 
-    # Execute SQL query with user input
-    query = "SELECT * FROM states WHERE name LIKE %s ORDER BY id ASC"
-    cursor.execute(query, (state_name,))
+        # Fetch and display the results
+        results = cursor.fetchall()
+        for row in results:
+            print(row)
 
-    # Fetch all the results
-    results = cursor.fetchall()
+    except MySQLdb.Error as e:
+        print("Error:", e)
+    finally:
+        if db:
+            db.close()
 
-    # Display the results
-    for row in results:
-        print(row)
 
-    # Close cursor and disconnect from the server
-    cursor.close()
-    db.close()
+if __name__ == "__main__":
+    main()
