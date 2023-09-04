@@ -6,7 +6,7 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.route("/hbn", strict_slashes=False)
+@app.route("/hbnb", strict_slashes=False)
 def hbn():
     return "HBNB"
 
