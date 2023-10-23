@@ -1,18 +1,16 @@
-#!/usr/bin/python3
-"""
-Sends a POST request to the passed URL with the email as a parameter,
-and displays the body of the response (decoded in utf-8)
-"""
+#!/usr/bin/env python3
+import requests  # Import the requests module for making HTTP requests
+import sys      # Import the sys module for accessing command-line arguments
 
-import requests
-import sys
+# Get the URL and email from the command-line arguments
+url = sys.argv[1]
+email = sys.argv[2]
 
-if __name__ == "__main__":
-    url = sys.argv[1]
+# Create a dictionary containing the email parameter
+data = {'email': email}
 
-    response = requests.get(url)
+# Make an HTTP POST request to the URL with the email parameter
+response = requests.post(url, data=data)
 
-    if response.status_code >= 400:
-        print("Error code:", response.status_code)
-    else:
-        print(response.text)
+# Display the body of the response
+print(response.text)
