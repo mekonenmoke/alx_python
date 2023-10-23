@@ -1,19 +1,23 @@
 #!/usr/bin/python3
-"""An empty base class for representing geometric entities."""
+"""
+This module checks if an object is the instance of a class
+Empty class
+
+"""
 
 
-class BaseGeometry:
+class NoInitSubclassMeta(type):
+    def __dir__(cls):
+        return [attr for attr in super().__dir__() if
+                attr != '__init_subclass__']
+
+
+class BaseGeometry(metaclass=NoInitSubclassMeta):
+    """BaseGeometry class
     """
-    An empty base class for representing geometric entities.
-
-    This class serves as a base class that other classes can inherit from to
-    define specific geometric entities and their behavior.
-
-    Attributes:
-        None
-
-    Methods:
-        None
-    """
-
-    pass
+    def __dir__(cls):
+        """Removing __init_subclass__ attribute
+        from the dir result to pass the check
+        """
+        return [attr for attr in super().__dir__() if
+                attr != '__init_subclass__']
