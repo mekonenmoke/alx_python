@@ -1,52 +1,37 @@
 #!/usr/bin/python3
-"""A class representing a rectangle, inheriting from Rectangle."""
-Rectangle = __import__("7-rectangle").Rectangle
+"""
+Creates a Square class.
+"""
+
+Rectangle = __import__('7-rectangle').Rectangle
 
 
 class Square(Rectangle):
     """
-    A class representing a square, inheriting from Rectangle.
-
-    This class inherits from the Rectangle class and provides functionality to represent a square.
-    It includes validation for a positive integer value for the size of the square.
-
-    Attributes:
-        __size (int): The size of the square (private attribute).
-
-    Methods:
-        __init__(self, size):
-            Initializes a new Square object with the given size.
-
-        area(self):
-            Calculate the area of the square.
-
-        __str__(self):
-            Returns a string representation of the Square in the format [Square] size/size.
-
+    Class Square that inherits from Rectangle (9-rectangle.py).
+    Contains a private instance attribute size and a public method area().
+    Inherits from Rectangle.
     """
 
     def __init__(self, size):
         """
-        Initializes a new Square object with the given size.
+        Initializes a Square.
 
         Args:
-            size (int): The size of the square.
-
-        Raises:
-            TypeError: If the size is not an integer.
-            ValueError: If the size is not a positive integer.
-
+            size (int): Size of the square.
         """
-        self.__size = size
+
         self.integer_validator("size", size)
         super().__init__(size, size)
+        self.__size = size
 
     def __str__(self):
-        """
-        Returns a string representation of the Square in the format [Square] size/size.
+        return super().__str__()
 
-        Returns:
-            str: The string representation of the Square object.
-
+    def area(self):
         """
-        return f"[Square] {self.__size}/{self.__size}"
+        Computes the area of a Square instance.
+        Overwrites the area() method from Rectangle.
+        """
+
+        return self.__size ** 2
