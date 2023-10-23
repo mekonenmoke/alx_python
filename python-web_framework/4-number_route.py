@@ -1,31 +1,50 @@
 #!/usr/bin/python3
-"""a script that starts a Flask web application:
-"""
-from flask import Flask
-
+""" Writing five routes  """
+from flask import Flask, abort
 app = Flask(__name__)
 
-@app.route("/", strict_slashes=False)
-def hello():
-    return "Hello HBNB!"
-@app.route("/hbnb", strict_slashes=False)
-def hbn():
-    return "HBNB"
 
-@app.route("/c/<text>", strict_slashes=False)
-def c(text):
-    return "C %s" % text
+@app.route('/', strict_slashes=False)
+def task_0():
+    return 'Hello HBNB!'
 
-@app.route("/python", strict_slashes=False)
-@app.route("/python/text/<int:text>", strict_slashes=False)
-def python(text = "is cool"):
-    return "Python_%s" % text
 
-@app.route("/number/<n>", strict_slashes=False)
-def number(n):
-    if type(n) is int:
-        return "%s is a number" % n
+@app.route('/hbnb', strict_slashes=False)
+def task_1():
+    return 'HBNB'
+
+
+@app.route('/c/<text>', strict_slashes=False)
+def task_2(text):
+    word = text.split('_')
+    return f"C {' '.join(word)}"
+
+
+@app.route('/python/', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
+def task_3(text='is cool'):
+    word = text.split('_')
+
+    return f"Python {' '.join(word)}"
+
+
+# Display if n is integer
+@app.route('/number/<int:n>', strict_slashes=False)
+def task_4(n):
+    return f'{n} is a number'
+
+
+# Display if n is float
+@app.route('/number/<float:n>', strict_slashes=False)
+def task_4_1(n):
+    abort(404)
+
+
+# Display if n is string
+@app.route('/number/<string:n>', strict_slashes=False)
+def task_4_2(n):
+    abort(404)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(debug=True)
