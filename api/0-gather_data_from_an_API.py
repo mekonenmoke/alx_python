@@ -3,13 +3,10 @@ import sys
 
 def get_employee_info(employee_id):
     # Get employee details
-    employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-    response = requests.get(employee_url)
-    employee_data = response.json()
-    employee_name = employee_data['name']
+    response = requests.get("https://jsonplaceholder.typicode.com/users/{}".format(employee_id))
+    employee_name = response.json()['name']
     # Get employee's TODO list
-    todos_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-    response = requests.get(todos_url)
+    response = requests.get("https://jsonplaceholder.typicode.com/users/{}/todos".format(employee_id))
     todos = response.json()
     # Count completed tasks
     completed_tasks = [todo for todo in todos if todo['completed']]
