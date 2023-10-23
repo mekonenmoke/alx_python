@@ -1,80 +1,77 @@
+"""This program fetches employee data and exports it to both CSV and JSON format
+
 """
-Export Employee TODO Progress to JSON
+import csv, json, requests, sys
 
-This script fetches an employee's TODO list and creates a JSON file with the data.
-The script takes an employee ID as a command-line argument and generates a JSON
-file containing the employee's TODO tasks in the desired format.
-
-Usage:
-    python script_name.py employee_id
-
-Args:
-    employee_id (int): The ID of the employee for whom to fetch the TODO list
-        and create a JSON file.
-
-Example:
-    To export the TODO progress of an employee with ID 2:
-    python script_name.py 2
-"""
-
-import json
-import requests
-import sys
-
-
-def export_employee_todo_progress_to_json(employee_id):
-    """
-    Fetches an employee's TODO list and creates a JSON file with the data.
-
-    Args:
-        employee_id (int): The ID of the employee for whom to fetch TODO list and create a JSON file.
-    """
-    # Construct the URL for the employee details
+def get_employee_data(employee_id):
+    # URL to fetch employee details
     employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-
-    # Fetch employee details using an HTTP GET request
-    employee_response = requests.get(employee_url)
-
-    # Check if the employee exists (HTTP status code 200 indicates success)
-    if employee_response.status_code != 200:
-        print(f"Employee with ID {employee_id} not found.")
-        return
-
-    # Parse the JSON response to obtain employee data
-    employee_data = employee_response.json()
-    employee_username = employee_data['username']
-
-    # Construct the URL for the employee's TODO list
+    # URL to fetch employee TO DO list
     todos_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
+    
+    try:
+        # Fetch employee data
+        response_employee = requests.get(employee_url)
+        response_employee.raise_for_status()
+        employee_data = response_employee.json()
+        
+        # Fetch employee TO DO list
+        response_todos = requests.get(todos_url)
+        response_todos.raise_for_status()
+        todos_data = response_todos.json()
+        
+        return employee_data,todos_data
+    
+    except requests.exceptions.HTTPError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
-    # Fetch the employee's TODO list using an HTTP GET request
-    todos_response = requests.get(todos_url)
+def export_to_csv(employee_id, employee_name, todos_data):
+    csv_filename = f"{employee_id}.csv"
+    
+    with open(csv_filename, mode="w", newline="") as csv_file:
+        csv_writer = csv.writer(csv_file)
+        
+        # Write the CSV header
+        csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+        
+        # Write the tasks data
+        for todo in todos_data:
+            csv_writer.writerow([employee_id, employee_name, todo["completed"], todo["title"]])
 
-    # Check if the TODO list was successfully fetched
-    if todos_response.status_code != 200:
-        print(f"Unable to fetch TODO list for employee with ID {employee_id}.")
-        return
-
-    # Parse the JSON response to obtain the TODO list data
-    todos_data = todos_response.json()
-
-    # Create JSON data in the desired format
+def export_to_json(employee_id, employee_name, todos_data):
+    json_filename = f"{employee_id}.json"
     json_data = {
-        str(employee_id): [
-            {"task": todo["title"], "completed": todo["completed"], "username": employee_username}
+        "USER_ID": [
+            {
+                "task": todo["title"],
+                "completed": todo["completed"],
+                "username": employee_name
+            }
             for todo in todos_data
         ]
     }
+    with open(json_filename, "w") as json_file:
+        json.dump(json_data, json_file)
 
-    # Create a JSON file and write the data
-    json_filename = f"{employee_id}.json"
-    with open(json_filename, 'w') as json_file:
-        json.dump(json_data, json_file, indent=4)
-
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <employee_id>")
+        sys.exit(1)
+        
+    employee_id = int(sys.argv[1])
+    employee_data, todos_data = get_employee_data(employee_id)
+    
+    # Extract employee information
+    employee_name = employee_data.get("name")
+    
+    # Export data to csv
+    export_to_csv(employee_id, employee_name, todos_data)
+    print(f"Data exported to {employee_id}.csv")
+    
+    # Export data to JSON
+    export_to_json(employee_id, employee_name, todos_data)
+    print(f"Data exported to {employee_id}.json")
 
 if __name__ == "__main__":
-    # Extract the employee ID from the command-line argument
-    employee_id = int(sys.argv[1])
-
-    # Call the function to export the employee's TODO progress to JSON
-    export_employee_todo_progress_to_json(employee_id)
+    main()
