@@ -31,15 +31,10 @@ if __name__ == "__main__":
     total_tasks = len(todo_data)
     completed_tasks = sum(1 for task in todo_data if task.get("completed"))
 
-    # Display progress
-    print("Employee {} is done with tasks({}/{}):".format(employee_name,
-                                                          completed_tasks, total_tasks))
-
     # Display completed task titles
     for task in todo_data:
         if task.get("completed"):
             formatted_task_title = "\t {}".format(task.get("title"))
-            print(formatted_task_title)
 
     # Export data in CSV
     file_name = '{}.csv'.format(employee_id)
