@@ -19,7 +19,6 @@ def get_employee_todo_progress(employee_id):
     csv_file_name = "{}.csv".format(user_id)
     with open(csv_file_name, mode='w', newline='') as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        writer.writerow(['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE'])
         for todo in todos:
             task_completed_status = todo["completed"]  # TASK_COMPLETED_STATUS as boolean
             task_title = todo["title"]
