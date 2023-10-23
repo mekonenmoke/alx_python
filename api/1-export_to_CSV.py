@@ -18,7 +18,7 @@ def get_employee_todo_progress(employee_id):
     # Export data to CSV
     csv_file_name = "{}.csv".format(user_id)
     with open(csv_file_name, mode='w', newline='') as file:
-        writer = csv.writer(file)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         for todo in todos:
             task_completed_status = "True" if todo["completed"] else "False"
             task_title = todo["title"]
